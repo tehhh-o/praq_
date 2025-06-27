@@ -1,0 +1,50 @@
+[
+  {
+    "ID": 1,
+    "Image": "assets/images/1.png",
+    "Title": "Autonomous Mobile Robotics",
+    "Description": "Designing, building, and maintaining robots to solve problems in industries from manufacturing to aerospace, mining to medicine."
+  },
+  {
+    "ID": 2,
+    "Image": "assets/images/2.png",
+    "Title": "Cloud Computing",
+    "Description": "Cloud computing has become a key part of corporate digital transformation strategy as companies migrate their physical IT activities, such as file storage and on-site servers, into a virtual environment."
+  },
+  {
+    "ID": 3,
+    "Image": "assets/images/3.png",
+    "Title": "Cyber Security",
+    "Description": "Information security analysts work to protect an organization’s computer systems networks, to prevent hackers from accessing and/or stealing sensitive information and data."
+  },
+  {
+    "ID": 4,
+    "Image": "assets/images/4.png",
+    "Title": "3D Digital Game Art",
+    "Description": "A 3D Digital Game Artist uses their creativity, technology, and geometry skills to create captivating animated experiences in a video game."
+  },
+  {
+    "ID": 5,
+    "Image": "assets/images/5.png",
+    "Title": "IT Software Solutions for Business",
+    "Description": "Creating new systems and modifying existing ones to provide software solutions to large and small businesses."
+  },
+  {
+    "ID": 6,
+    "Image": "assets/images/6.png",
+    "Title": "Mobile Applications Development",
+    "Description": "Mobile Applications Developers use technology and design to create apps which are appealing and function well on phones."
+  },
+  {
+    "ID": 7,
+    "Image": "assets/images/7.png",
+    "Title": "Information Network Cabling",
+    "Description": "Designing and installing cable systems for telecommunication and network communications."
+  },
+  {
+    "ID": 8,
+    "Image": "assets/images/8.png",
+    "Title": "Web Technologies",
+    "Description": "Planning and designing, as well as testing websites, maintaining them, incorporating third-party platforms, and integrating social media platforms."
+  }
+]
