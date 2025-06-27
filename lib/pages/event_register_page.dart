@@ -29,7 +29,10 @@ class _EventRegisterPageState extends State<EventRegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Image.asset('assets/images/wsmb2024_logo.png', height: 65),
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Center(

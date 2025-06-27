@@ -16,7 +16,10 @@ class _RegistrationDetailPageState extends State<RegistrationDetailPage> {
     final user = Provider.of<UserDetailProvider>(context).userDetails;
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Image.asset('assets/images/wsmb2024_logo.png', height: 65),
+        centerTitle: true,
+      ),
       body: Center(
         child: Column(
           children: [
