@@ -3,6 +3,7 @@ import 'package:crash_course/modules/events.dart';
 import 'package:crash_course/modules/ws_webview.dart';
 import 'package:crash_course/pages/event_detail_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,19 +13,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Future<List<Events>> eventFuture;
+  late List<Events> events;
+  List<Events> filteredEvents = [];
+  final cateorgyController = TextEditingController();
+  String filteredCategory = '';
 
-  Future<List<Events>> getEvents(BuildContext context) async {
-    final assetsBundle = DefaultAssetBundle.of(context);
-    final data = await assetsBundle.loadString('assets/data.json');
+  Future<void> getEvents() async {
+    final data = await rootBundle.loadString('assets/data.json');
     final body = jsonDecode(data);
 
-    return body.map<Events>(Events.fromJson).toList();
+    setState(() {
+      events = body.map<Events>(Events.fromJson).toList();
+    });
   }
 
   @override
   void initState() {
-    eventFuture = getEvents(context);
+    getEvents();
     super.initState();
   }
 
@@ -42,23 +47,44 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            TextField(decoration: InputDecoration(hintText: 'Search')),
-            Expanded(
-              child: FutureBuilder(
-                future: eventFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final events = snapshot.data!;
-                    return EventCards(events: events);
-                  } else {
-                    return Text('no data');
-                  }
-                },
+            TextField(
+              onSubmitted: (value) {
+                setState(() {
+                  filteredCategory = value;
+                  filteredEvents = events
+                      .where(
+                        (event) => event.Title.toLowerCase().contains(
+                          filteredCategory.toLowerCase(),
+                        ),
+                      )
+                      .toList();
+                });
+              },
+              controller: cateorgyController,
+              decoration: InputDecoration(
+                hintText: 'Search by category',
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      filteredCategory = cateorgyController.text;
+                      filteredEvents = events
+                          .where(
+                            (event) => event.Title.toLowerCase().contains(
+                              filteredCategory.toLowerCase(),
+                            ),
+                          )
+                          .toList();
+                    });
+                  },
+                  icon: Icon(Icons.search),
+                ),
               ),
             ),
+            EventCard(events: filteredCategory == '' ? events : filteredEvents),
           ],
         ),
       ),
+
       bottomNavigationBar: TextButton(
         onPressed: () {
           Navigator.of(
@@ -71,12 +97,16 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class EventCards extends StatelessWidget {
+class EventCard extends StatelessWidget {
   final List<Events> events;
-  const EventCards({super.key, required this.events});
+  const EventCard({super.key, required this.events});
 
   @override
   Widget build(BuildContext context) {
+    if (events.isEmpty) {
+      return Center(child: Text('No event matching your search'));
+    }
+
     return Expanded(
       child: ListView.builder(
         itemCount: events.length,
